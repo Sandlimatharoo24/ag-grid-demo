@@ -1,0 +1,48 @@
+{
+    "gridData": [
+        {
+            "id": 1,
+            "condition": "true",
+            "startDate": "23/01/2021",
+            "startTime": "10:34",
+            "endDate": "10/02/2023",
+            "endTime": "05:24",
+            "description": "Test Data for Module"
+        },
+        {
+            "id": 2,
+            "condition": "true",
+            "startDate": "18/07/2019",
+            "startTime": "09:56",
+            "endDate": "09/07/2025",
+            "endTime": "03:36",
+            "description": "Date TIme Data"
+        },
+        {
+            "id": 3,
+            "condition": "true",
+            "startDate": "15/02/2020",
+            "startTime": "11:13",
+            "endDate": "05/04/2027",
+            "endTime": "04:19",
+            "description": "Diffrent Data"
+        },
+        {
+            "id": 4,
+            "condition": "true",
+            "startDate": "17/06/2020",
+            "startTime": "12:13",
+            "endDate": "23/04/2027",
+            "endTime": "07:19",
+            "description": "Test Data"
+        },
+        {
+            "id": 5,
+            "startDate": "21/10/2020",
+            "startTime": "01:13",
+            "endDate": "28/04/2027",
+            "endTime": "02:19",
+            "description": "Start Date test Data"
+        }
+    ]
+}
