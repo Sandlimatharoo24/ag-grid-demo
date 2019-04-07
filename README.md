@@ -1,2 +1,2 @@
-# angualraggrid
-Angualr Ag grid Project
+# ag-grid-demo
+Angular Ag grid Project with dynamic data structuring into tabular form.
