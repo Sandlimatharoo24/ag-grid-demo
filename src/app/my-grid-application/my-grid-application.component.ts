@@ -6,7 +6,6 @@ import { ModalService } from '../services/model.service';
 import { GridCellEditorComponent } from "../grid-cell-editor/grid-cell-editor.component";
 import { NumericEditor } from "../numeric-editor/numeric-editor.component";
 import { BooleanEditor } from "../boolean-editor/boolean-editor.component";
-import {DatepickerEditor} from "../datepicker-editor/datepicker-editor.component";
 import * as moment from 'moment';
 
 
@@ -28,6 +27,7 @@ export class MyGridApplicationComponent implements OnInit {
     private rowData: [];
 
     private frameworkComponents;
+    private components;
 
     ngOnInit() {
     }
@@ -56,8 +56,11 @@ export class MyGridApplicationComponent implements OnInit {
     this.frameworkComponents = {
       gridCellEditorComponent: GridCellEditorComponent,
       booleanEditor: BooleanEditor,
-      numericEditor: NumericEditor,
-      datePicker: this.getDatePicker()
+      numericEditor: NumericEditor
+    };
+    this.components = {
+      datePicker: getDatePicker(),
+      timePicker: getTimePicker()
     };
  }
 
@@ -65,7 +68,6 @@ export class MyGridApplicationComponent implements OnInit {
         this.gridApi = params.api;
         this.gridColumnApi = params.columnApi;
         this.showInitData();
-
     }
 
     onCellClicked($event){
@@ -82,8 +84,7 @@ export class MyGridApplicationComponent implements OnInit {
         }, error => console.error(error));
     };
 
-    
-
+  
    tabToNextCell(params) {
     let previousCell = params.previousCellDef;
     let lastRowIndex = previousCell.rowIndex;
@@ -141,8 +142,6 @@ export class MyGridApplicationComponent implements OnInit {
   generateColumns(data: any[]) {
     let columnDefinitions = [];
     let editor = '';
-    let cellEditorFramework ;
-    let valueFormatter ;
     let parameters = {};
 
     data.map(object => {
@@ -158,19 +157,24 @@ export class MyGridApplicationComponent implements OnInit {
             }
           break; 
           
-          case 'startDate':
-          cellEditorFramework= DatepickerEditor,
-          valueFormatter = (data) => data.value ? moment(data.value).format('L') : null  
-           break;
+          case 'startDate': case 'endDate':
+          editor = "datePicker"
+          break;
+
+          case 'startTime': case 'endTime':
+          editor = "timePicker"
+          break;
+
+          case 'description':
+          editor = "agLargeTextCellEditor"
+          break;
         }
     
           let mappedColumn = {
             headerName: key.toUpperCase(),
             field: key,
             cellEditor: editor,
-            cellEditorParams: parameters,
-            valueFormatter: valueFormatter,
-            cellEditorFramework: cellEditorFramework
+            cellEditorParams: parameters
           }
 
           columnDefinitions.push(mappedColumn);
@@ -186,28 +190,52 @@ export class MyGridApplicationComponent implements OnInit {
     )
     return columnDefinitions;
   }
+}
 
-   getDatePicker() {
-    function Datepicker() {}
-    Datepicker.prototype.init = function(params) {
-      this.eInput = document.createElement("input");
-      this.eInput.value = params.value;
-      (this.eInput).datepicker({ dateFormat: "dd/mm/yy" });
+function getDatePicker() {
+  function Datepicker() {}
+  Datepicker.prototype.init = function(params) {
+    this.eInput = document.createElement("input");
+    this.eInput.value = params.value;
+    $(this.eInput).datepicker({ dateFormat: "dd/mm/yy" });
+  };
+  Datepicker.prototype.getGui = function() {
+    return this.eInput;
+  };
+  Datepicker.prototype.afterGuiAttached = function() {
+    this.eInput.focus();
+    this.eInput.select();
+  };
+  Datepicker.prototype.getValue = function() {
+    return this.eInput.value;
+  };
+  Datepicker.prototype.destroy = function() {};
+  Datepicker.prototype.isPopup = function() {
+    return false;
+  };
+  return Datepicker;
+}
+
+function getTimePicker() {
+  function Timepicker() {}
+  Timepicker.prototype.init = function(params) {
+    this.eInput = document.createElement("input");
+    this.eInput.value = params.value;
+    $(this.eInput).timepicker();
     };
-    Datepicker.prototype.getGui = function() {
-      return this.eInput;
-    };
-    Datepicker.prototype.afterGuiAttached = function() {
-      this.eInput.focus();
-      this.eInput.select();
-    };
-    Datepicker.prototype.getValue = function() {
-      return this.eInput.value;
-    };
-    Datepicker.prototype.destroy = function() {};
-    Datepicker.prototype.isPopup = function() {
-      return false;
-    };
-    return Datepicker;
-  }
+  Timepicker.prototype.getGui = function() {
+    return this.eInput;
+  };
+  Timepicker.prototype.afterGuiAttached = function() {
+    this.eInput.focus();
+    this.eInput.select();
+  };
+  Timepicker.prototype.getValue = function() {
+    return this.eInput.value;
+  };
+  Timepicker.prototype.destroy = function() {};
+  Timepicker.prototype.isPopup = function() {
+    return false;
+  };
+  return Timepicker;
 }

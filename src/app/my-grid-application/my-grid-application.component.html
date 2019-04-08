@@ -1,6 +1,6 @@
 <div >
     <ag-grid-angular  #agGrid  style="width: 100%; height: 400px;" class="ag-theme-balham"    [rowData]="rowData"  [tabToNextCell]="tabToNextCell"
-      [navigateToNextCell]="navigateToNextCell" [frameworkComponents]="frameworkComponents"
+      [navigateToNextCell]="navigateToNextCell" [frameworkComponents]="frameworkComponents" [components]="components"
               [gridOptions]="gridOptions" (gridReady)="onGridReady($event)" (cellClicked)="onCellClicked($event)">
     </ag-grid-angular>
 </div>

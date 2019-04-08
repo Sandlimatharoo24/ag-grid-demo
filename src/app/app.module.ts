@@ -14,9 +14,7 @@ import { ModalService } from './services/model.service';
 import { GridCellEditorComponent } from './grid-cell-editor/grid-cell-editor.component';
 import { NumericEditor } from './numeric-editor/numeric-editor.component';
 import { BooleanEditor } from './boolean-editor/boolean-editor.component';
-import { DatepickerEditor } from './datepicker-editor/datepicker-editor.component';
-import { MatFormFieldModule, MatDatepickerModule, MatNativeDateModule, MatInputModule } from '@angular/material';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import * as $ from 'jquery';
 
 @NgModule({
   declarations: [
@@ -26,23 +24,17 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ModelComponent,
     GridCellEditorComponent,
     NumericEditor,
-    BooleanEditor,
-    DatepickerEditor
-  ],
+    BooleanEditor
+    ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
      AgGridModule.withComponents(
-      [RedComponentComponent, GridCellEditorComponent, NumericEditor, BooleanEditor, DatepickerEditor]
+      [RedComponentComponent, GridCellEditorComponent, NumericEditor, BooleanEditor]
      ),
     AppRoutingModule,
-    UiModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule,
-    BrowserAnimationsModule
+    UiModule
   ],
   providers: [ModalService],
   bootstrap: [AppComponent]
